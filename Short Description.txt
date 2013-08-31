@@ -1,0 +1,1 @@
+Wtyczka zmienia stan wszystkich kont, gdy aktywna jest aplikacja pe³noekranowa.
