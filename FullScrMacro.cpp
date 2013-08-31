@@ -330,8 +330,8 @@ LRESULT CALLBACK TimerFrmProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 		//Sprawdzenie czy wskazane okno jest pelno ekranowe
 		if(ChkFullScreenMode(hActiveFrm))
 		{
-		  //Makro nie zostalo uruchomione
-		  if(!MacroExecuted)
+		  //Makro nie zostalo uruchomione & uruchomienie makra jest mozliwe
+		  if((!MacroExecuted)&&((0<GetState())&&(GetState()<6)))
 		  {
 			//Opozniona zmiana stanu kont
 			if(DelayValue)
@@ -539,7 +539,7 @@ extern "C" PPluginInfo __declspec(dllexport) __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"FullScrMacro";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,0,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,1,0);
   PluginInfo.Description = L"Wtyczka zmienia stan wszystkich kont, gdy aktywna jest aplikacja pe³noekranowa.";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
