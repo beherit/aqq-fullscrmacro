@@ -1,3 +1,7 @@
+1.0.3.0
+-----
+* Włączenie działania makra dla okna odtwarzacza YouTube w AQQ.
+
 1.0.2.0
 -----
 * Wyłączenie ze sprawdzania okien pochodzących z tej samej instancji AQQ.

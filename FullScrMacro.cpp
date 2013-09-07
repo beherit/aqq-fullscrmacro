@@ -337,11 +337,10 @@ LRESULT CALLBACK TimerFrmProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 	  GetWindowThreadProcessId(hwnd, &PID);
 	  //Wyjatki w sprawdzaniu okien
 	  if(((UnicodeString)ClassName!="MSTaskListWClass")
-	  &&((UnicodeString)ClassName!="TaskSwitcherWnd")
-	  &&(PID!=ProcessPID))
+	  &&((UnicodeString)ClassName!="TaskSwitcherWnd"))
 	  {
 		//Sprawdzenie czy wskazane okno jest pelno ekranowe
-		if(ChkFullScreenMode(hActiveFrm))
+		if((ChkFullScreenMode(hActiveFrm))&&((PID!=ProcessPID)||((UnicodeString)ClassName=="ShockwaveFlashFullScreen")))
 		{
 		  //Makro nie zostalo uruchomione & uruchomienie makra jest mozliwe
 		  if((!MacroExecuted)&&((0<GetState())&&(GetState()<6)))
@@ -550,7 +549,7 @@ extern "C" PPluginInfo __declspec(dllexport) __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"FullScrMacro";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,2,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,3,0);
   PluginInfo.Description = L"Wtyczka zmienia stan wszystkich kont, gdy aktywna jest aplikacja pe³noekranowa.";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
