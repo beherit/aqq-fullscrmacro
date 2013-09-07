@@ -24,6 +24,7 @@
 #pragma hdrstop
 #pragma argsused
 #include <inifiles.hpp>
+#include <process.h>
 #include <PluginAPI.h>
 #include "SettingsFrm.h"
 
@@ -40,6 +41,8 @@ TPluginLink PluginLink;
 TPluginInfo PluginInfo;
 //Uchwyt-do-okna-timera------------------------------------------------------
 HWND hTimerFrm;
+//PID-procesu----------------------------------------------------------------
+DWORD ProcessPID;
 //Poprzedni-stan-konta-------------------------------------------------------
 int LastState;
 UnicodeString LastStatus;
@@ -286,17 +289,23 @@ int __stdcall ServiceFullScrMacroFastSettingsItem(WPARAM wParam, LPARAM lParam)
 //Usuwanie elementu szybkiego dostepu do ustawien wtyczki
 void DestroyFullScrMacroFastSettings()
 {
+  //Usuwanie elementu szybkiego dostepu do ustawien wtyczki
   TPluginAction BuildFullScrMacroFastSettingsItem;
   ZeroMemory(&BuildFullScrMacroFastSettingsItem,sizeof(TPluginAction));
   BuildFullScrMacroFastSettingsItem.cbSize = sizeof(TPluginAction);
   BuildFullScrMacroFastSettingsItem.pszName = L"FullScrMacroFastSettingsItemButton";
   PluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENUITEM,0,(LPARAM)(&BuildFullScrMacroFastSettingsItem));
+  //Usuwanie serwisu szybkiego dostepu do ustawien wtyczki
+  PluginLink.DestroyServiceFunction(ServiceFullScrMacroFastSettingsItem);
 }
 //---------------------------------------------------------------------------
 
 //Tworzenie elementu szybkiego dostepu do ustawien wtyczki
 void BuildFullScrMacroFastSettings()
 {
+  //Tworzenie serwisu szybkiego dostepu do ustawien wtyczki
+  PluginLink.CreateServiceFunction(L"sFullScrMacroFastSettingsItem",ServiceFullScrMacroFastSettingsItem);
+  //Tworzenie elementu szybkiego dostepu do ustawien wtyczki
   TPluginAction BuildFullScrMacroFastSettingsItem;
   ZeroMemory(&BuildFullScrMacroFastSettingsItem,sizeof(TPluginAction));
   BuildFullScrMacroFastSettingsItem.cbSize = sizeof(TPluginAction);
@@ -323,9 +332,13 @@ LRESULT CALLBACK TimerFrmProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 	  //Pobieranie klasy aktywnego okna
 	  wchar_t* ClassName = new wchar_t[128];
 	  GetClassNameW(hActiveFrm, ClassName, 128);
+	  //Pobranie PID procesu aktywnego okna
+	  DWORD PID;
+	  GetWindowThreadProcessId(hwnd, &PID);
 	  //Wyjatki w sprawdzaniu okien
 	  if(((UnicodeString)ClassName!="MSTaskListWClass")
-	  &&((UnicodeString)ClassName!="TaskSwitcherWnd"))
+	  &&((UnicodeString)ClassName!="TaskSwitcherWnd")
+	  &&(PID!=ProcessPID))
 	  {
 		//Sprawdzenie czy wskazane okno jest pelno ekranowe
 		if(ChkFullScreenMode(hActiveFrm))
@@ -460,13 +473,13 @@ extern "C" int __declspec(dllexport) __stdcall Load(PPluginLink Link)
 {
   //Linkowanie wtyczki z komunikatorem
   PluginLink = *Link;
+  //Pobranie PID procesu AQQ
+  ProcessPID = getpid();
   //Sciezka folderu prywatnego wtyczek
   UnicodeString PluginUserDir = GetPluginUserDir();
   //Tworzeniu katalogu z ustawieniami wtyczki
   if(!DirectoryExists(PluginUserDir+"\\\\FullScrMacro"))
    CreateDir(PluginUserDir+"\\\\FullScrMacro");
-  //Tworzenie serwisu szybkiego dostepu do ustawien wtyczki
-  PluginLink.CreateServiceFunction(L"sFullScrMacroFastSettingsItem",ServiceFullScrMacroFastSettingsItem);
   //Tworzenie interfejsu szybkiego dostepu do ustawien wtyczki
   BuildFullScrMacroFastSettings();
   //Hook na zmiane kolorystyki AlphaControls
@@ -509,8 +522,6 @@ extern "C" int __declspec(dllexport) __stdcall Unload()
   UnregisterClass(L"TFullScrMacro",HInstance);
   //Usuwanie interfejsu szybkiego dostepu do ustawien wtyczki
   DestroyFullScrMacroFastSettings();
-  //Usuwanie serwisu szybkiego dostepu do ustawien wtyczki
-  PluginLink.DestroyServiceFunction(ServiceFullScrMacroFastSettingsItem);
   //Wyladowanie wszystkich hookow
   PluginLink.UnhookEvent(OnColorChange);
   PluginLink.UnhookEvent(OnThemeChanged);
@@ -539,7 +550,7 @@ extern "C" PPluginInfo __declspec(dllexport) __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"FullScrMacro";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,1,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,2,0);
   PluginInfo.Description = L"Wtyczka zmienia stan wszystkich kont, gdy aktywna jest aplikacja pe³noekranowa.";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
