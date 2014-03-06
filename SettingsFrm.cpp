@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) 2013 Krzysztof Grochocki
+// Copyright (C) 2013-2014 Krzysztof Grochocki
 //
 // This file is part of FullScrMacro
 //
@@ -44,9 +44,9 @@ __declspec(dllimport)bool ChkThemeAnimateWindows();
 __declspec(dllimport)bool ChkThemeGlowing();
 __declspec(dllimport)int GetHUE();
 __declspec(dllimport)int GetSaturation();
+__declspec(dllimport)UnicodeString EncodeBase64(UnicodeString Str);
+__declspec(dllimport)UnicodeString DecodeBase64(UnicodeString Str);
 __declspec(dllimport)void LoadSettings();
-__declspec(dllimport)UnicodeString StrToIniStr(UnicodeString Str);
-__declspec(dllimport)UnicodeString IniStrToStr(UnicodeString Str);
 __declspec(dllimport)UnicodeString GetIconPath(int Icon);
 //---------------------------------------------------------------------------
 __fastcall TSettingsForm::TSettingsForm(TComponent* Owner)
@@ -120,7 +120,7 @@ void __fastcall TSettingsForm::aLoadSettingsExecute(TObject *Sender)
 {
   TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\FullScrMacro\\\\Settings.ini");
   StateComboBox->ItemIndex = Ini->ReadInteger("Settings","State",5);
-  StatusMemo->Text = UTF8ToUnicodeString(IniStrToStr(Ini->ReadString("Settings","Status","").Trim().w_str()));
+  StatusMemo->Text = DecodeBase64(Ini->ReadString("Settings","Status64",""));
   sSpinEdit->Value = Ini->ReadInteger("Settings","Delay",3);
   delete Ini;
 }
@@ -130,8 +130,7 @@ void __fastcall TSettingsForm::aSaveSettingsExecute(TObject *Sender)
 {
   TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\FullScrMacro\\\\Settings.ini");
   Ini->WriteInteger("Settings","State",StateComboBox->ItemIndex);
-  ShortString pStatus = UTF8EncodeToShortString(StatusMemo->Text);
-  Ini->WriteString("Settings", "Status", StrToIniStr(pStatus.operator AnsiString()));
+  Ini->WriteString("Settings", "Status64", EncodeBase64(StatusMemo->Text));
   Ini->WriteInteger("Settings","Delay",sSpinEdit->Value);
   delete Ini;
 }

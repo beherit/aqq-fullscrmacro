@@ -201,6 +201,7 @@ object SettingsForm: TSettingsForm
     BoundLabel.MaxWidth = 0
     BoundLabel.UseSkinColor = True
     SkinData.SkinSection = 'COMBOBOX'
+    VerticalAlignment = taAlignTop
     Style = csOwnerDrawFixed
     ItemHeight = 21
     ItemIndex = 5
@@ -311,6 +312,7 @@ object SettingsForm: TSettingsForm
     ThirdParty.ThirdScrollControl = ' '
     ThirdParty.ThirdUpDown = ' '
     ThirdParty.ThirdScrollBar = ' '
+    ThirdParty.ThirdStaticText = ' '
     Left = 32
   end
   object sSkinProvider: TsSkinProvider

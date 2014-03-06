@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{D0EAB305-6F64-4868-AC36-93CA05DD1A8C}</ProjectGuid>
-        <ProjectVersion>14.6</ProjectVersion>
+        <ProjectVersion>15.1</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
@@ -63,7 +63,7 @@
         <VerInfo_Locale>1045</VerInfo_Locale>
         <ILINK_GenerateImportLibrary>true</ILINK_GenerateImportLibrary>
         <Manifest_File>None</Manifest_File>
-        <AllPackageLibs>rtl.lib;vcl.lib;acntXE4_R.lib;vclimg.lib;vclx.lib</AllPackageLibs>
+        <AllPackageLibs>rtl.lib;vcl.lib;vclimg.lib;vclx.lib;acntXE5_R.lib</AllPackageLibs>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <ProjectType>VCppStyleDll</ProjectType>
         <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
@@ -75,19 +75,19 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <VerInfo_Release>3</VerInfo_Release>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <PackageImports>acntXE4_R;adortl;bcbie;bcbsmp;bdertl;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CustomIPTransport;DataSnapCommon;dbexpress;dbrtl;dbxcds;DbxCommonDriver;DBXInterBaseDriver;dsnap;fmx;fmxase;fmxdae;fmxobj;FMXTee;FmxTeeUI;ibxpress;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdbbde;inetdbxpress;MetropolisUILiveTile;rtl;soaprtl;svn;Tee;TeeDB;TeeUI;vcl;vclactnband;vcldb;vcldbx;vcldsnap;vclib;vclie;vclimg;vclribbon;VclSmp;vcltouch;vclx;webdsnap;xmlrtl;$(PackageImports)</PackageImports>
+        <PackageImports>acntXE5_R;adortl;bcbie;bcbsmp;bdertl;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CustomIPTransport;DataSnapCommon;dbexpress;dbrtl;dbxcds;DbxCommonDriver;DBXInterBaseDriver;dsnap;fmx;fmxase;fmxdae;fmxobj;FMXTee;FmxTeeUI;ibxpress;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdbbde;inetdbxpress;MetropolisUILiveTile;rtl;soaprtl;svn;Tee;TeeDB;TeeUI;vcl;vclactnband;vcldb;vcldbx;vcldsnap;vclib;vclie;vclimg;vclribbon;VclSmp;vcltouch;vclx;webdsnap;xmlrtl;$(PackageImports)</PackageImports>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
-        <VerInfo_Keys>FileVersion=1.0.3.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki (Beherit)</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.1.0.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
         <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
-        <VerInfo_Release>3</VerInfo_Release>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <PackageImports>acntXE4_R;adortl;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CustomIPTransport;DataSnapCommon;dbexpress;dbrtl;dbxcds;DbxCommonDriver;DBXInterBaseDriver;dsnap;fmx;fmxase;fmxdae;fmxobj;FMXTee;FmxTeeUI;ibxpress;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdbxpress;MetropolisUILiveTile;rtl;soaprtl;Tee;TeeDB;TeeUI;vcl;vclactnband;vcldb;vcldsnap;vclib;vclie;vclimg;vclribbon;VclSmp;vcltouch;vclx;webdsnap;xmlrtl;$(PackageImports)</PackageImports>
-        <VerInfo_Keys>FileVersion=1.0.3.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki (Beherit)</VerInfo_Keys>
+        <PackageImports>acntXE5_R;adortl;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CustomIPTransport;DataSnapCommon;dbexpress;dbrtl;dbxcds;DbxCommonDriver;DBXInterBaseDriver;dsnap;fmx;fmxase;fmxdae;fmxobj;FMXTee;FmxTeeUI;ibxpress;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdbxpress;MetropolisUILiveTile;rtl;soaprtl;Tee;TeeDB;TeeUI;vcl;vclactnband;vcldb;vcldsnap;vclib;vclie;vclimg;vclribbon;VclSmp;vcltouch;vclx;webdsnap;xmlrtl;$(PackageImports)</PackageImports>
+        <VerInfo_Keys>FileVersion=1.1.0.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
         <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
         <BCC_PCHName_Clang>FullScrMacro.h</BCC_PCHName_Clang>
     </PropertyGroup>
@@ -114,32 +114,32 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_Release>3</VerInfo_Release>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <LinkPackageImports>rtl.bpi;vcl.bpi</LinkPackageImports>
-        <VerInfo_Keys>FileVersion=1.0.3.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki (Beherit)</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.1.0.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
-        <VerInfo_Release>3</VerInfo_Release>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>FileVersion=1.0.3.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki (Beherit)</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.1.0.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
         <TASM_Debugging>None</TASM_Debugging>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Release>3</VerInfo_Release>
-        <LinkPackageStatics>rtl.lib;vcl.lib;acntXE4_R.lib;vclimg.lib;vclx.lib</LinkPackageStatics>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <LinkPackageStatics>rtl.lib;vcl.lib;vclimg.lib;vclx.lib;acntXE5_R.lib</LinkPackageStatics>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <DynamicRTL>false</DynamicRTL>
-        <VerInfo_Keys>FileVersion=1.0.3.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki (Beherit)</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.1.0.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
-        <VerInfo_Release>3</VerInfo_Release>
+        <VerInfo_MinorVer>1</VerInfo_MinorVer>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <BCC_PCHName_Clang>FullScrMacro.h</BCC_PCHName_Clang>
-        <VerInfo_Keys>FileVersion=1.0.3.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki (Beherit)</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.1.0.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;LegalCopyright=Krzysztof Grochocki;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
     </PropertyGroup>
     <ItemGroup>
         <CppCompile Include="FullScrMacro.cpp">

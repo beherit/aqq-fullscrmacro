@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) 2013 Krzysztof Grochocki
+// Copyright (C) 2013-2014 Krzysztof Grochocki
 //
 // This file is part of FullScrMacro
 //
@@ -55,84 +55,11 @@ int State;
 UnicodeString Status;
 int DelayValue;
 //FORWARD-AQQ-HOOKS----------------------------------------------------------
-int __stdcall OnColorChange(WPARAM wParam, LPARAM lParam);
-int __stdcall OnThemeChanged(WPARAM wParam, LPARAM lParam);
-int __stdcall ServiceFullScrMacroFastSettingsItem(WPARAM wParam, LPARAM lParam);
+INT_PTR __stdcall OnColorChange(WPARAM wParam, LPARAM lParam);
+INT_PTR __stdcall OnThemeChanged(WPARAM wParam, LPARAM lParam);
+INT_PTR __stdcall ServiceFullScrMacroFastSettingsItem(WPARAM wParam, LPARAM lParam);
 //FORWARD-TIMER--------------------------------------------------------------
 LRESULT CALLBACK TimerFrmProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-//---------------------------------------------------------------------------
-
-//Konwersja ciagu znakow na potrzeby INI
-UnicodeString StrToIniStr(UnicodeString Str)
-{
-  //Definicja zmiennych
-  wchar_t Buffer[50010];
-  wchar_t* B;
-  wchar_t* S;
-  //Przekazywanie ciagu znakow
-  S = Str.w_str();
-  //Ustalanie wskaznika
-  B = Buffer;
-  //Konwersja znakow
-  while(*S!='\0')
-  {
-	switch(*S)
-	{
-	  case 13:
-	  case 10:
-		if((*S==13)&&(S[1]==10)) S++;
-		else if((*S==10)&&(S[1] == 13)) S++;
-		*B = '\\';
-		B++;
-		*B = 'n';
-		B++;
-		S++;
-	  break;
-	  default:
-		*B = *S;
-		B++;
-		S++;
-	  break;
-	}
-  }
-  *B = '\0';
-  //Zwracanie zkonwertowanego ciagu znakow
-  return (wchar_t*)Buffer;
-}
-//---------------------------------------------------------------------------
-UnicodeString IniStrToStr(UnicodeString Str)
-{
-  //Definicja zmiennych
-  wchar_t Buffer[50010];
-  wchar_t* B;
-  wchar_t* S;
-  //Przekazywanie ciagu znakow
-  S = Str.w_str();
-  //Ustalanie wskaznika
-  B = Buffer;
-  //Konwersja znakow
-  while(*S!='\0')
-  {
-	if((S[0]=='\\')&&(S[1]=='n'))
-	{
-	  *B = 13;
-	  B++;
-	  *B = 10;
-	  B++;
-	  S++;
-	  S++;
-	}
-	else
-	{
-	  *B = *S;
-	  B++;
-	  S++;
-	}
-  }
-  *B = '\0';
-  //Zwracanie zkonwertowanego ciagu znakow
-  return (wchar_t*)Buffer;
-}
 //---------------------------------------------------------------------------
 
 //Pobieranie sciezki katalogu prywatnego wtyczek
@@ -208,6 +135,56 @@ int GetSaturation()
 }
 //---------------------------------------------------------------------------
 
+//Konwersja ciagu znakow na potrzeby INI
+UnicodeString IniStrToStr(UnicodeString Str)
+{
+  //Definicja zmiennych
+  wchar_t Buffer[50010];
+  wchar_t* B;
+  wchar_t* S;
+  //Przekazywanie ciagu znakow
+  S = Str.w_str();
+  //Ustalanie wskaznika
+  B = Buffer;
+  //Konwersja znakow
+  while(*S!='\0')
+  {
+	if((S[0]=='\\')&&(S[1]=='n'))
+	{
+	  *B = 13;
+	  B++;
+	  *B = 10;
+	  B++;
+	  S++;
+	  S++;
+	}
+	else
+	{
+	  *B = *S;
+	  B++;
+	  S++;
+	}
+  }
+  *B = '\0';
+  //Zwracanie zkonwertowanego ciagu znakow
+  return (wchar_t*)Buffer;
+}
+//---------------------------------------------------------------------------
+
+//Kodowanie ciagu znakow do Base64
+UnicodeString EncodeBase64(UnicodeString Str)
+{
+  return (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_BASE64,(WPARAM)Str.w_str(),3);
+}
+//---------------------------------------------------------------------------
+
+//Dekodowanie ciagu znakow z Base64
+UnicodeString DecodeBase64(UnicodeString Str)
+{
+  return (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_BASE64,(WPARAM)Str.w_str(),2);
+}
+//---------------------------------------------------------------------------
+
 //Pobieranie aktualnego opisu konta glownego
 UnicodeString GetStatus()
 {
@@ -271,7 +248,7 @@ bool ChkFullScreenMode(HWND hWnd)
 //---------------------------------------------------------------------------
 
 //Serwis szybkiego dostepu do ustawien wtyczki
-int __stdcall ServiceFullScrMacroFastSettingsItem(WPARAM wParam, LPARAM lParam)
+INT_PTR __stdcall ServiceFullScrMacroFastSettingsItem(WPARAM wParam, LPARAM lParam)
 {
   //Przypisanie uchwytu do formy ustawien
   if(!hSettingsForm)
@@ -400,7 +377,7 @@ LRESULT CALLBACK TimerFrmProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 //---------------------------------------------------------------------------
 
 //Hook na zmiane kolorystyki AlphaControls
-int __stdcall OnColorChange(WPARAM wParam, LPARAM lParam)
+INT_PTR __stdcall OnColorChange(WPARAM wParam, LPARAM lParam)
 {
   //Okno ustawien zostalo juz stworzone
   if(hSettingsForm)
@@ -418,7 +395,7 @@ int __stdcall OnColorChange(WPARAM wParam, LPARAM lParam)
 //---------------------------------------------------------------------------
 
 //Hook na zmianê kompozycji
-int __stdcall OnThemeChanged(WPARAM wParam, LPARAM lParam)
+INT_PTR __stdcall OnThemeChanged(WPARAM wParam, LPARAM lParam)
 {
   //Okno ustawien zostalo juz stworzone
   if(hSettingsForm)
@@ -461,14 +438,19 @@ void LoadSettings()
 {
   TIniFile *Ini = new TIniFile(GetPluginUserDir()+"\\\\FullScrMacro\\\\Settings.ini");
   State = Ini->ReadInteger("Settings","State",5);
-  Status = UTF8ToUnicodeString(IniStrToStr(Ini->ReadString("Settings","Status","").Trim().w_str()));
+  if(Ini->ValueExists("Settings","Status"))
+  {
+	Ini->WriteString("Settings", "Status64", EncodeBase64(UTF8ToUnicodeString(IniStrToStr(Ini->ReadString("Settings","Status","").w_str()))));
+	Ini->DeleteKey("Settings","Status");
+  }
+  Status = DecodeBase64(Ini->ReadString("Settings","Status64",""));
   DelayValue = Ini->ReadInteger("Settings","Delay",3);
 
   delete Ini;
 }
 //---------------------------------------------------------------------------
 
-extern "C" int __declspec(dllexport) __stdcall Load(PPluginLink Link)
+extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
 {
   //Linkowanie wtyczki z komunikatorem
   PluginLink = *Link;
@@ -511,7 +493,7 @@ extern "C" int __declspec(dllexport) __stdcall Load(PPluginLink Link)
 }
 //---------------------------------------------------------------------------
 
-extern "C" int __declspec(dllexport) __stdcall Unload()
+extern "C" INT_PTR __declspec(dllexport) __stdcall Unload()
 {
   //Wyladowanie timerow
   for(int TimerID=10;TimerID<=20;TimerID=TimerID+10) KillTimer(hTimerFrm,TimerID);
@@ -530,7 +512,7 @@ extern "C" int __declspec(dllexport) __stdcall Unload()
 //---------------------------------------------------------------------------
 
 //Ustawienia wtyczki
-extern "C" int __declspec(dllexport)__stdcall Settings()
+extern "C" INT_PTR __declspec(dllexport)__stdcall Settings()
 {
   //Przypisanie uchwytu do formy ustawien
   if(!hSettingsForm)
@@ -549,11 +531,11 @@ extern "C" PPluginInfo __declspec(dllexport) __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"FullScrMacro";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,3,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,1,0,0);
   PluginInfo.Description = L"Wtyczka zmienia stan wszystkich kont, gdy aktywna jest aplikacja pe³noekranowa.";
-  PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
+  PluginInfo.Author = L"Krzysztof Grochocki";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
-  PluginInfo.Copyright = L"Krzysztof Grochocki (Beherit)";
+  PluginInfo.Copyright = L"Krzysztof Grochocki";
   PluginInfo.Homepage = L"http://beherit.pl";
   PluginInfo.Flag = 0;
   PluginInfo.ReplaceDefaultModule = 0;
