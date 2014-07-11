@@ -68,6 +68,7 @@ __published:	// IDE-managed Components
 	void __fastcall aLoadSettingsExecute(TObject *Sender);
 	void __fastcall aSaveSettingsExecute(TObject *Sender);
 	void __fastcall OKButtonClick(TObject *Sender);
+	void __fastcall sSkinManagerSysDlgInit(TacSysDlgData DlgData, bool &AllowSkinning);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TSettingsForm(TComponent* Owner);
