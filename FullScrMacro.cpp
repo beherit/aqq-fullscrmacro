@@ -134,6 +134,11 @@ int GetSaturation()
 	return (int)PluginLink.CallService(AQQ_SYSTEM_COLORGETSATURATION, 0, 0);
 }
 //---------------------------------------------------------------------------
+int GetBrightness()
+{
+	return (int)PluginLink.CallService(AQQ_SYSTEM_COLORGETBRIGHTNESS, 0, 0);
+}
+//---------------------------------------------------------------------------
 
 //Kodowanie ciagu znakow do Base64
 UnicodeString EncodeBase64(UnicodeString Str)
@@ -349,8 +354,10 @@ INT_PTR __stdcall OnColorChange(WPARAM wParam, LPARAM lParam)
 		//Wlaczona zaawansowana stylizacja okien
 		if(ChkSkinEnabled())
 		{
-			hSettingsForm->sSkinManager->HueOffset = wParam;
-			hSettingsForm->sSkinManager->Saturation = lParam;
+			TPluginColorChange ColorChange = *(PPluginColorChange)wParam;
+			hSettingsForm->sSkinManager->HueOffset = ColorChange.Hue;
+			hSettingsForm->sSkinManager->Saturation = ColorChange.Saturation;
+			SettingsForm->sSkinManager->Brightness = ColorChange.Brightness;
 		}
 	}
 
@@ -383,6 +390,7 @@ INT_PTR __stdcall OnThemeChanged(WPARAM wParam, LPARAM lParam)
 				//Zmiana kolorystyki AlphaControls
 				hSettingsForm->sSkinManager->HueOffset = GetHUE();
 				hSettingsForm->sSkinManager->Saturation = GetSaturation();
+				hSettingsForm->sSkinManager->Brightness = GetBrightness();
 				//Aktywacja skorkowania AlphaControls
 				hSettingsForm->sSkinManager->Active = true;
 			}
@@ -423,7 +431,7 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
 	//Tworzenie interfejsu szybkiego dostepu do ustawien wtyczki
 	BuildFullScrMacroFastSettings();
 	//Hook na zmiane kolorystyki AlphaControls
-	PluginLink.HookEvent(AQQ_SYSTEM_COLORCHANGE, OnColorChange);
+	PluginLink.HookEvent(AQQ_SYSTEM_COLORCHANGEV2, OnColorChange);
 	//Hook na zmiane kompozycji
 	PluginLink.HookEvent(AQQ_SYSTEM_THEMECHANGED, OnThemeChanged);
 	//Odczyt ustawien
