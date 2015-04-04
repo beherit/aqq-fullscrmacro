@@ -21,11 +21,12 @@
 
 #include <vcl.h>
 #include <windows.h>
-#pragma hdrstop
-#pragma argsused
 #include <inifiles.hpp>
 #include <process.h>
+#include <IdHashMessageDigest.hpp>
 #include <PluginAPI.h>
+#include <LangAPI.hpp>
+#pragma hdrstop
 #include "SettingsFrm.h"
 
 int WINAPI DllEntryPoint(HINSTANCE hinst, unsigned long reason, void* lpReserved)
@@ -56,6 +57,7 @@ UnicodeString Status;
 int DelayValue;
 //FORWARD-AQQ-HOOKS----------------------------------------------------------
 INT_PTR __stdcall OnColorChange(WPARAM wParam, LPARAM lParam);
+INT_PTR __stdcall OnLangCodeChanged(WPARAM wParam, LPARAM lParam);
 INT_PTR __stdcall OnThemeChanged(WPARAM wParam, LPARAM lParam);
 INT_PTR __stdcall ServiceFullScrMacroFastSettingsItem(WPARAM wParam, LPARAM lParam);
 //FORWARD-TIMER--------------------------------------------------------------
@@ -365,6 +367,29 @@ INT_PTR __stdcall OnColorChange(WPARAM wParam, LPARAM lParam)
 }
 //---------------------------------------------------------------------------
 
+//Hook na zmiane lokalizacji
+INT_PTR __stdcall OnLangCodeChanged(WPARAM wParam, LPARAM lParam)
+{
+  //Czyszczenie cache lokalizacji
+	ClearLngCache();
+	//Pobranie sciezki do katalogu prywatnego uzytkownika
+	UnicodeString PluginUserDir = GetPluginUserDir();
+	//Ustawienie sciezki lokalizacji wtyczki
+	UnicodeString LangCode = (wchar_t*)lParam;
+	LangPath = PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\" + LangCode + "\\\\";
+	if(!DirectoryExists(LangPath))
+	{
+		LangCode = (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETDEFLANGCODE, 0, 0);
+		LangPath = PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\" + LangCode + "\\\\";
+	}
+	//Aktualizacja lokalizacji form wtyczki
+	for(int i=0; i<Screen->FormCount; i++)
+		LangForm(Screen->Forms[i]);
+
+	return 0;
+}
+//---------------------------------------------------------------------------
+
 //Hook na zmianê kompozycji
 INT_PTR __stdcall OnThemeChanged(WPARAM wParam, LPARAM lParam)
 {
@@ -405,6 +430,48 @@ INT_PTR __stdcall OnThemeChanged(WPARAM wParam, LPARAM lParam)
 }
 //---------------------------------------------------------------------------
 
+//Zapisywanie zasobów
+void ExtractRes(wchar_t* FileName, wchar_t* ResName, wchar_t* ResType)
+{
+	TPluginTwoFlagParams PluginTwoFlagParams;
+	PluginTwoFlagParams.cbSize = sizeof(TPluginTwoFlagParams);
+	PluginTwoFlagParams.Param1 = ResName;
+	PluginTwoFlagParams.Param2 = ResType;
+	PluginTwoFlagParams.Flag1 = (int)HInstance;
+	PluginLink.CallService(AQQ_FUNCTION_SAVERESOURCE,(WPARAM)&PluginTwoFlagParams,(LPARAM)FileName);
+}
+//---------------------------------------------------------------------------
+
+//Obliczanie sumy kontrolnej pliku
+UnicodeString MD5File(UnicodeString FileName)
+{
+	if(FileExists(FileName))
+	{
+		UnicodeString Result;
+		TFileStream *fs;
+		fs = new TFileStream(FileName, fmOpenRead | fmShareDenyWrite);
+		try
+		{
+			TIdHashMessageDigest5 *idmd5= new TIdHashMessageDigest5();
+			try
+			{
+				Result = idmd5->HashStreamAsHex(fs);
+			}
+			__finally
+			{
+				delete idmd5;
+			}
+		}
+		__finally
+		{
+			delete fs;
+		}
+		return Result;
+	}
+	else return 0;
+}
+//---------------------------------------------------------------------------
+
 //Odczyt ustawien
 void LoadSettings()
 {
@@ -425,6 +492,34 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
 	ProcessPID = getpid();
 	//Sciezka folderu prywatnego wtyczek
 	UnicodeString PluginUserDir = GetPluginUserDir();
+  //Tworzenie katalogow lokalizacji
+	if(!DirectoryExists(PluginUserDir + "\\\\Languages"))
+		CreateDir(PluginUserDir + "\\\\Languages");
+	if(!DirectoryExists(PluginUserDir + "\\\\Languages\\\\FullScrMacro"))
+		CreateDir(PluginUserDir + "\\\\Languages\\\\FullScrMacro");
+	if(!DirectoryExists(PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\EN"))
+		CreateDir(PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\EN");
+	if(!DirectoryExists(PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\PL"))
+		CreateDir(PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\PL");
+	//Wypakowanie plikow lokalizacji
+	//B76E14CAC6117BF20671BA39F34AB05C
+	if(!FileExists(PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\EN\\\\TSettingsForm.lng"))
+		ExtractRes((PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\EN\\\\TSettingsForm.lng").w_str(), L"EN_SETTINGSFRM", L"DATA");
+	else if(MD5File(PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\EN\\\\TSettingsForm.lng")!="B76E14CAC6117BF20671BA39F34AB05C")
+		ExtractRes((PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\EN\\\\TSettingsForm.lng").w_str(), L"EN_SETTINGSFRM", L"DATA");
+	//2BEB77B67771065FD33194361DEF4563
+	if(!FileExists(PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\PL\\\\TSettingsForm.lng"))
+		ExtractRes((PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\PL\\\\TSettingsForm.lng").w_str(), L"PL_SETTINGSFRM", L"DATA");
+	else if(MD5File(PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\PL\\\\TSettingsForm.lng")!="2BEB77B67771065FD33194361DEF4563")
+		ExtractRes((PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\PL\\\\TSettingsForm.lng").w_str(), L"PL_SETTINGSFRM", L"DATA");
+  //Ustawienie sciezki lokalizacji wtyczki
+	UnicodeString LangCode = (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETLANGCODE, 0, 0);
+	LangPath = PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\" + LangCode + "\\\\";
+	if(!DirectoryExists(LangPath))
+	{
+		LangCode = (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETDEFLANGCODE, 0, 0);
+		LangPath = PluginUserDir + "\\\\Languages\\\\FullScrMacro\\\\" + LangCode + "\\\\";
+	}
 	//Tworzeniu katalogu z ustawieniami wtyczki
 	if(!DirectoryExists(PluginUserDir+"\\\\FullScrMacro"))
 		CreateDir(PluginUserDir+"\\\\FullScrMacro");
@@ -432,6 +527,8 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
 	BuildFullScrMacroFastSettings();
 	//Hook na zmiane kolorystyki AlphaControls
 	PluginLink.HookEvent(AQQ_SYSTEM_COLORCHANGEV2, OnColorChange);
+	//Hook na zmiane lokalizacji
+	PluginLink.HookEvent(AQQ_SYSTEM_LANGCODE_CHANGED, OnLangCodeChanged);
 	//Hook na zmiane kompozycji
 	PluginLink.HookEvent(AQQ_SYSTEM_THEMECHANGED, OnThemeChanged);
 	//Odczyt ustawien
@@ -472,6 +569,7 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Unload()
 	DestroyFullScrMacroFastSettings();
 	//Wyladowanie wszystkich hookow
 	PluginLink.UnhookEvent(OnColorChange);
+	PluginLink.UnhookEvent(OnLangCodeChanged);
 	PluginLink.UnhookEvent(OnThemeChanged);
 
 	return 0;

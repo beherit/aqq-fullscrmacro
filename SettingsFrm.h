@@ -24,23 +24,22 @@
 #define SettingsFrmH
 #define WM_ALPHAWINDOWS (WM_USER + 666)
 //---------------------------------------------------------------------------
-#include <System.Classes.hpp>
-#include <Vcl.Controls.hpp>
-#include <Vcl.StdCtrls.hpp>
-#include <Vcl.Forms.hpp>
+#include "acAlphaImageList.hpp"
 #include "sBevel.hpp"
 #include "sButton.hpp"
+#include "sComboBox.hpp"
+#include "sEdit.hpp"
+#include "sMemo.hpp"
 #include "sSkinManager.hpp"
 #include "sSkinProvider.hpp"
-#include <System.Actions.hpp>
-#include <Vcl.ActnList.hpp>
-#include <Vcl.ExtCtrls.hpp>
-#include "sComboBox.hpp"
-#include "acAlphaImageList.hpp"
-#include "sMemo.hpp"
-#include <Vcl.ImgList.hpp>
-#include "sEdit.hpp"
 #include "sSpinEdit.hpp"
+#include <System.Actions.hpp>
+#include <System.Classes.hpp>
+#include <Vcl.ActnList.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.ExtCtrls.hpp>
+#include <Vcl.ImgList.hpp>
+#include <Vcl.StdCtrls.hpp>
 //---------------------------------------------------------------------------
 class TSettingsForm : public TForm
 {
