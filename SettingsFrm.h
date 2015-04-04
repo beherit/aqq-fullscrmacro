@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) 2013-2014 Krzysztof Grochocki
+// Copyright (C) 2013-2015 Krzysztof Grochocki
 //
 // This file is part of FullScrMacro
 //
