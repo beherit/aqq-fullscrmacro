@@ -140,10 +140,9 @@ void __fastcall TSettingsForm::StateComboBoxDrawItem(TWinControl *Control, int I
 					TRect &Rect, TOwnerDrawState State)
 {
 	//Dodanie ikonek do ComboBox
-	if(State.Contains(odSelected)) StateComboBox->Canvas->DrawFocusRect(Rect);
 	StateComboBox->Canvas->Brush->Style = bsClear;
-	sAlphaImageList->Draw(StateComboBox->Canvas,Rect.left+2,Rect.top+2,Index);
-	StateComboBox->Canvas->TextOutW(Rect.left+22,Rect.top+3,StateComboBox->Items->Strings[Index]);
+	sAlphaImageList->Draw(StateComboBox->Canvas, Rect.Left+3, Rect.Top+3, Index);
+	StateComboBox->Canvas->TextOutW(Rect.Left+22, Rect.Top+4, StateComboBox->Items->Strings[Index]);
 }
 //---------------------------------------------------------------------------
 

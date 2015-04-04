@@ -187,7 +187,7 @@ object SettingsForm: TSettingsForm
     Left = 8
     Top = 26
     Width = 238
-    Height = 27
+    Height = 28
     Alignment = taLeftJustify
     BoundLabel.Active = True
     BoundLabel.Caption = 'Stan kont po aktywacji aplikacji pe'#322'noekranowej:'
@@ -203,10 +203,9 @@ object SettingsForm: TSettingsForm
     SkinData.SkinSection = 'COMBOBOX'
     VerticalAlignment = taAlignTop
     Style = csOwnerDrawFixed
-    ItemHeight = 21
-    ItemIndex = 5
+    ItemHeight = 22
+    ItemIndex = -1
     TabOrder = 2
-    Text = 'Nie przeszkadza'#263
     OnDrawItem = StateComboBoxDrawItem
     Items.Strings = (
       'Roz'#322#261'czony'
