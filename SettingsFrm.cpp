@@ -58,7 +58,7 @@ __fastcall TSettingsForm::TSettingsForm(TComponent* Owner)
 void __fastcall TSettingsForm::WMTransparency(TMessage &Message)
 {
 	Application->ProcessMessages();
-	if(sSkinManager->Active) sSkinProvider->BorderForm->UpdateExBordersPos(true,(int)Message.LParam);
+	if(sSkinManager->Active) sSkinProvider->BorderForm->UpdateExBordersPos(true, (int)Message.LParam);
 }
 //---------------------------------------------------------------------------
 
@@ -119,9 +119,9 @@ void __fastcall TSettingsForm::aExitExecute(TObject *Sender)
 void __fastcall TSettingsForm::aLoadSettingsExecute(TObject *Sender)
 {
 	TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\FullScrMacro\\\\Settings.ini");
-	StateComboBox->ItemIndex = Ini->ReadInteger("Settings","State",5);
-	StatusMemo->Text = DecodeBase64(Ini->ReadString("Settings","Status64",""));
-	sSpinEdit->Value = Ini->ReadInteger("Settings","Delay",3);
+	StateComboBox->ItemIndex = Ini->ReadInteger("Settings", "State", 5);
+	StatusMemo->Text = DecodeBase64(Ini->ReadString("Settings", "Status64", ""));
+	sSpinEdit->Value = Ini->ReadInteger("Settings", "Delay", 3);
 	delete Ini;
 }
 //---------------------------------------------------------------------------
@@ -129,9 +129,9 @@ void __fastcall TSettingsForm::aLoadSettingsExecute(TObject *Sender)
 void __fastcall TSettingsForm::aSaveSettingsExecute(TObject *Sender)
 {
 	TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\FullScrMacro\\\\Settings.ini");
-	Ini->WriteInteger("Settings","State",StateComboBox->ItemIndex);
+	Ini->WriteInteger("Settings", "State", StateComboBox->ItemIndex);
 	Ini->WriteString("Settings", "Status64", EncodeBase64(StatusMemo->Text));
-	Ini->WriteInteger("Settings","Delay",sSpinEdit->Value);
+	Ini->WriteInteger("Settings", "Delay", sSpinEdit->Value);
 	delete Ini;
 }
 //---------------------------------------------------------------------------
