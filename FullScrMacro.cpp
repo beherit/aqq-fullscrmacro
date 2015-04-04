@@ -390,7 +390,7 @@ INT_PTR __stdcall OnLangCodeChanged(WPARAM wParam, LPARAM lParam)
 }
 //---------------------------------------------------------------------------
 
-//Hook na zmianê kompozycji
+//Hook na zmiane kompozycji
 INT_PTR __stdcall OnThemeChanged(WPARAM wParam, LPARAM lParam)
 {
 	//Okno ustawien zostalo juz stworzone
@@ -430,7 +430,7 @@ INT_PTR __stdcall OnThemeChanged(WPARAM wParam, LPARAM lParam)
 }
 //---------------------------------------------------------------------------
 
-//Zapisywanie zasobów
+//Zapisywanie zasobow
 void ExtractRes(wchar_t* FileName, wchar_t* ResName, wchar_t* ResType)
 {
 	TPluginTwoFlagParams PluginTwoFlagParams;
