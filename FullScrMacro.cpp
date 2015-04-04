@@ -135,42 +135,6 @@ int GetSaturation()
 }
 //---------------------------------------------------------------------------
 
-//Konwersja ciagu znakow na potrzeby INI
-UnicodeString IniStrToStr(UnicodeString Str)
-{
-	//Definicja zmiennych
-	wchar_t Buffer[50010];
-	wchar_t* B;
-	wchar_t* S;
-	//Przekazywanie ciagu znakow
-	S = Str.w_str();
-	//Ustalanie wskaznika
-	B = Buffer;
-	//Konwersja znakow
-	while(*S!='\0')
-	{
-		if((S[0]=='\\')&&(S[1]=='n'))
-		{
-			*B = 13;
-			B++;
-			*B = 10;
-			B++;
-			S++;
-			S++;
-		}
-		else
-		{
-			*B = *S;
-			B++;
-			S++;
-		}
-	}
-	*B = '\0';
-	//Zwracanie zkonwertowanego ciagu znakow
-	return (wchar_t*)Buffer;
-}
-//---------------------------------------------------------------------------
-
 //Kodowanie ciagu znakow do Base64
 UnicodeString EncodeBase64(UnicodeString Str)
 {
@@ -438,11 +402,6 @@ void LoadSettings()
 {
 	TIniFile *Ini = new TIniFile(GetPluginUserDir()+"\\\\FullScrMacro\\\\Settings.ini");
 	State = Ini->ReadInteger("Settings","State",5);
-	if(Ini->ValueExists("Settings","Status"))
-	{
-		Ini->WriteString("Settings", "Status64", EncodeBase64(UTF8ToUnicodeString(IniStrToStr(Ini->ReadString("Settings","Status","").w_str()))));
-		Ini->DeleteKey("Settings","Status");
-	}
 	Status = DecodeBase64(Ini->ReadString("Settings","Status64",""));
 	DelayValue = Ini->ReadInteger("Settings","Delay",3);
 
