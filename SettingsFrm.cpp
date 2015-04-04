@@ -21,18 +21,19 @@
 
 //---------------------------------------------------------------------------
 #include <vcl.h>
+#include <LangAPI.hpp>
 #pragma hdrstop
 #include "SettingsFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
+#pragma link "acAlphaImageList"
 #pragma link "sBevel"
 #pragma link "sButton"
+#pragma link "sComboBox"
+#pragma link "sEdit"
+#pragma link "sMemo"
 #pragma link "sSkinManager"
 #pragma link "sSkinProvider"
-#pragma link "sComboBox"
-#pragma link "acAlphaImageList"
-#pragma link "sMemo"
-#pragma link "sEdit"
 #pragma link "sSpinEdit"
 #pragma resource "*.dfm"
 TSettingsForm *SettingsForm;
@@ -65,6 +66,8 @@ void __fastcall TSettingsForm::WMTransparency(TMessage &Message)
 
 void __fastcall TSettingsForm::FormCreate(TObject *Sender)
 {
+	//Lokalizowanie formy
+	LangForm(this);
 	//Wlaczona zaawansowana stylizacja okien
 	if(ChkSkinEnabled())
 	{

@@ -1,10 +1,12 @@
 object SettingsForm: TSettingsForm
+  Tag = 1
   Left = 0
   Top = 0
+  ActiveControl = sSpinEdit
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'FullScrMacro - ustawienia'
-  ClientHeight = 219
+  ClientHeight = 204
   ClientWidth = 254
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -155,7 +157,7 @@ object SettingsForm: TSettingsForm
   TextHeight = 13
   object Bevel: TsBevel
     Left = 0
-    Top = 181
+    Top = 166
     Width = 254
     Height = 38
     Align = alBottom
@@ -164,40 +166,47 @@ object SettingsForm: TSettingsForm
     ExplicitTop = 223
   end
   object CancelButton: TsButton
-    Left = 171
-    Top = 188
+    Tag = 3
+    Left = 173
+    Top = 173
     Width = 75
     Height = 25
+    Align = alCustom
+    Anchors = [akRight, akBottom]
     Caption = 'Anuluj'
-    TabOrder = 0
+    TabOrder = 3
     OnClick = aExitExecute
     SkinData.SkinSection = 'BUTTON'
+    ExplicitTop = 188
   end
   object OKButton: TsButton
-    Left = 90
-    Top = 188
+    Tag = 2
+    Left = 92
+    Top = 173
     Width = 75
     Height = 25
+    Align = alCustom
+    Anchors = [akRight, akBottom]
     Caption = 'OK'
-    TabOrder = 1
+    TabOrder = 4
     OnClick = OKButtonClick
     SkinData.SkinSection = 'BUTTON'
+    ExplicitTop = 188
   end
   object StateComboBox: TsComboBox
+    Tag = 4
     Left = 8
-    Top = 26
+    Top = 8
     Width = 238
     Height = 28
     Alignment = taLeftJustify
-    BoundLabel.Active = True
-    BoundLabel.Caption = 'Stan kont po aktywacji aplikacji pe'#322'noekranowej:'
-    BoundLabel.Indent = 6
+    BoundLabel.Indent = 0
     BoundLabel.Font.Charset = DEFAULT_CHARSET
     BoundLabel.Font.Color = clWindowText
     BoundLabel.Font.Height = -11
     BoundLabel.Font.Name = 'Tahoma'
     BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclTopLeft
+    BoundLabel.Layout = sclLeft
     BoundLabel.MaxWidth = 0
     BoundLabel.UseSkinColor = True
     SkinData.SkinSection = 'COMBOBOX'
@@ -205,24 +214,16 @@ object SettingsForm: TSettingsForm
     Style = csOwnerDrawFixed
     ItemHeight = 22
     ItemIndex = -1
-    TabOrder = 2
+    TabOrder = 0
     OnDrawItem = StateComboBoxDrawItem
-    Items.Strings = (
-      'Roz'#322#261'czony'
-      'Po'#322#261'czony'
-      'Wolny'
-      'Oddalony'
-      'Nieobecny'
-      'Nie przeszkadza'#263
-      'Niewidoczny')
   end
   object StatusMemo: TsMemo
     Left = 8
-    Top = 59
+    Top = 42
     Width = 238
     Height = 89
     ScrollBars = ssVertical
-    TabOrder = 3
+    TabOrder = 1
     BoundLabel.Indent = 0
     BoundLabel.Font.Charset = DEFAULT_CHARSET
     BoundLabel.Font.Color = clWindowText
@@ -235,11 +236,12 @@ object SettingsForm: TSettingsForm
     SkinData.SkinSection = 'EDIT'
   end
   object sSpinEdit: TsSpinEdit
+    Tag = 5
     Left = 206
-    Top = 154
+    Top = 137
     Width = 40
     Height = 21
-    TabOrder = 4
+    TabOrder = 2
     Text = '3'
     SkinData.SkinSection = 'EDIT'
     BoundLabel.Active = True
@@ -288,6 +290,7 @@ object SettingsForm: TSettingsForm
     MenuSupport.ExtraLineFont.Name = 'Tahoma'
     MenuSupport.ExtraLineFont.Style = []
     Options.OptimizingPriority = opMemory
+    SkinDirectory = 'c:\Skins'
     SkinName = 'Skin'
     SkinInfo = 'N/A'
     ThirdParty.ThirdEdits = ' '
