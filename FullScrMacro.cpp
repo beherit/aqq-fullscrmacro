@@ -65,21 +65,21 @@ LRESULT CALLBACK TimerFrmProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 //Pobieranie sciezki katalogu prywatnego wtyczek
 UnicodeString GetPluginUserDir()
 {
-	return StringReplace((wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETPLUGINUSERDIR,0,0), "\\", "\\\\", TReplaceFlags() << rfReplaceAll);
+	return StringReplace((wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETPLUGINUSERDIR, 0, 0), "\\", "\\\\", TReplaceFlags() << rfReplaceAll);
 }
 //---------------------------------------------------------------------------
 
 //Pobieranie sciezki do skorki kompozycji
 UnicodeString GetThemeSkinDir()
 {
-	return StringReplace((wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETTHEMEDIR,0,0), "\\", "\\\\", TReplaceFlags() << rfReplaceAll) + "\\\\Skin";
+	return StringReplace((wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETTHEMEDIR, 0, 0), "\\", "\\\\", TReplaceFlags() << rfReplaceAll) + "\\\\Skin";
 }
 //---------------------------------------------------------------------------
 
 //Pobieranie sciezki ikony z interfejsu AQQ
 UnicodeString GetIconPath(int Icon)
 {
-	return StringReplace((wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETPNG_FILEPATH,Icon,0), "\\", "\\\\", TReplaceFlags() << rfReplaceAll);
+	return StringReplace((wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETPNG_FILEPATH, Icon, 0), "\\", "\\\\", TReplaceFlags() << rfReplaceAll);
 }
 //--------------------------------------------------------------------------
 
@@ -87,11 +87,11 @@ UnicodeString GetIconPath(int Icon)
 bool ChkSkinEnabled()
 {
 	TStrings* IniList = new TStringList();
-	IniList->SetText((wchar_t*)PluginLink.CallService(AQQ_FUNCTION_FETCHSETUP,0,0));
+	IniList->SetText((wchar_t*)PluginLink.CallService(AQQ_FUNCTION_FETCHSETUP, 0, 0));
 	TMemIniFile *Settings = new TMemIniFile(ChangeFileExt(Application->ExeName, ".INI"));
 	Settings->SetStrings(IniList);
 	delete IniList;
-	UnicodeString SkinsEnabled = Settings->ReadString("Settings","UseSkin","1");
+	UnicodeString SkinsEnabled = Settings->ReadString("Settings", "UseSkin", "1");
 	delete Settings;
 	return StrToBool(SkinsEnabled);
 }
@@ -101,11 +101,11 @@ bool ChkSkinEnabled()
 bool ChkThemeAnimateWindows()
 {
 	TStrings* IniList = new TStringList();
-	IniList->SetText((wchar_t*)PluginLink.CallService(AQQ_FUNCTION_FETCHSETUP,0,0));
+	IniList->SetText((wchar_t*)PluginLink.CallService(AQQ_FUNCTION_FETCHSETUP, 0, 0));
 	TMemIniFile *Settings = new TMemIniFile(ChangeFileExt(Application->ExeName, ".INI"));
 	Settings->SetStrings(IniList);
 	delete IniList;
-	UnicodeString AnimateWindowsEnabled = Settings->ReadString("Theme","ThemeAnimateWindows","1");
+	UnicodeString AnimateWindowsEnabled = Settings->ReadString("Theme", "ThemeAnimateWindows", "1");
 	delete Settings;
 	return StrToBool(AnimateWindowsEnabled);
 }
@@ -113,11 +113,11 @@ bool ChkThemeAnimateWindows()
 bool ChkThemeGlowing()
 {
 	TStrings* IniList = new TStringList();
-	IniList->SetText((wchar_t*)PluginLink.CallService(AQQ_FUNCTION_FETCHSETUP,0,0));
+	IniList->SetText((wchar_t*)PluginLink.CallService(AQQ_FUNCTION_FETCHSETUP, 0, 0));
 	TMemIniFile *Settings = new TMemIniFile(ChangeFileExt(Application->ExeName, ".INI"));
 	Settings->SetStrings(IniList);
 	delete IniList;
-	UnicodeString GlowingEnabled = Settings->ReadString("Theme","ThemeGlowing","1");
+	UnicodeString GlowingEnabled = Settings->ReadString("Theme", "ThemeGlowing", "1");
 	delete Settings;
 	return StrToBool(GlowingEnabled);
 }
@@ -126,26 +126,26 @@ bool ChkThemeGlowing()
 //Pobieranie ustawien koloru AlphaControls
 int GetHUE()
 {
-	return (int)PluginLink.CallService(AQQ_SYSTEM_COLORGETHUE,0,0);
+	return (int)PluginLink.CallService(AQQ_SYSTEM_COLORGETHUE, 0, 0);
 }
 //---------------------------------------------------------------------------
 int GetSaturation()
 {
-	return (int)PluginLink.CallService(AQQ_SYSTEM_COLORGETSATURATION,0,0);
+	return (int)PluginLink.CallService(AQQ_SYSTEM_COLORGETSATURATION, 0, 0);
 }
 //---------------------------------------------------------------------------
 
 //Kodowanie ciagu znakow do Base64
 UnicodeString EncodeBase64(UnicodeString Str)
 {
-	return (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_BASE64,(WPARAM)Str.w_str(),3);
+	return (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_BASE64, (WPARAM)Str.w_str(), 3);
 }
 //---------------------------------------------------------------------------
 
 //Dekodowanie ciagu znakow z Base64
 UnicodeString DecodeBase64(UnicodeString Str)
 {
-	return (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_BASE64,(WPARAM)Str.w_str(),2);
+	return (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_BASE64, (WPARAM)Str.w_str(), 2);
 }
 //---------------------------------------------------------------------------
 
@@ -153,7 +153,7 @@ UnicodeString DecodeBase64(UnicodeString Str)
 UnicodeString GetStatus()
 {
 	TPluginStateChange PluginStateChange;
-	PluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE,(WPARAM)&PluginStateChange,0);
+	PluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE, (WPARAM)&PluginStateChange, 0);
 	return (wchar_t*)PluginStateChange.Status;
 }
 //---------------------------------------------------------------------------
@@ -162,7 +162,7 @@ UnicodeString GetStatus()
 int GetState()
 {
 	TPluginStateChange PluginStateChange;
-	PluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE,(WPARAM)&PluginStateChange,0);
+	PluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE, (WPARAM)&PluginStateChange, 0);
 	return PluginStateChange.NewState;
 }
 //---------------------------------------------------------------------------
@@ -171,12 +171,12 @@ int GetState()
 void SetStatus(int NewState, UnicodeString NewStatus)
 {
 	TPluginStateChange PluginStateChange;
-	PluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE,(WPARAM)&PluginStateChange,0);
+	PluginLink.CallService(AQQ_FUNCTION_GETNETWORKSTATE, (WPARAM)&PluginStateChange, 0);
 	//PluginStateChange.cbSize = sizeof(TPluginStateChange);
 	PluginStateChange.NewState = NewState;
 	PluginStateChange.Status = NewStatus.w_str();
 	PluginStateChange.Force = true;
-	PluginLink.CallService(AQQ_SYSTEM_SETSHOWANDSTATUS,0,(LPARAM)&PluginStateChange);
+	PluginLink.CallService(AQQ_SYSTEM_SETSHOWANDSTATUS, 0, (LPARAM)&PluginStateChange);
 }
 //---------------------------------------------------------------------------
 
@@ -185,7 +185,7 @@ bool ChkFullScreenMode(HWND hWnd)
 {
 	//Pobieranie wymiarow aktywnego okna
 	TRect ActiveFrmRect;
-	GetWindowRect(hWnd,&ActiveFrmRect);;
+	GetWindowRect(hWnd, &ActiveFrmRect);;
 	//Sprawdzanie szerokosci/wysokosci okna
 	if((ActiveFrmRect.Width()==Screen->Width)&&(ActiveFrmRect.Height()==Screen->Height))
 	{
@@ -205,7 +205,7 @@ bool ChkFullScreenMode(HWND hWnd)
 		wchar_t WClassName[128];
 		GetClassNameW(hWnd, WClassName, sizeof(WClassName));
 		//Aplikacja Metro UI
-		if(AnsiPos("Windows.UI.Core.CoreWindow",(UnicodeString)WClassName)) return true;
+		if(AnsiPos("Windows.UI.Core.CoreWindow", (UnicodeString)WClassName)) return true;
 	}
 	return false;
 }
@@ -232,10 +232,10 @@ void DestroyFullScrMacroFastSettings()
 {
 	//Usuwanie elementu szybkiego dostepu do ustawien wtyczki
 	TPluginAction BuildFullScrMacroFastSettingsItem;
-	ZeroMemory(&BuildFullScrMacroFastSettingsItem,sizeof(TPluginAction));
+	ZeroMemory(&BuildFullScrMacroFastSettingsItem, sizeof(TPluginAction));
 	BuildFullScrMacroFastSettingsItem.cbSize = sizeof(TPluginAction);
 	BuildFullScrMacroFastSettingsItem.pszName = L"FullScrMacroFastSettingsItemButton";
-	PluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENUITEM,0,(LPARAM)(&BuildFullScrMacroFastSettingsItem));
+	PluginLink.CallService(AQQ_CONTROLS_DESTROYPOPUPMENUITEM, 0, (LPARAM)(&BuildFullScrMacroFastSettingsItem));
 	//Usuwanie serwisu szybkiego dostepu do ustawien wtyczki
 	PluginLink.DestroyServiceFunction(ServiceFullScrMacroFastSettingsItem);
 }
@@ -245,17 +245,17 @@ void DestroyFullScrMacroFastSettings()
 void BuildFullScrMacroFastSettings()
 {
 	//Tworzenie serwisu szybkiego dostepu do ustawien wtyczki
-	PluginLink.CreateServiceFunction(L"sFullScrMacroFastSettingsItem",ServiceFullScrMacroFastSettingsItem);
+	PluginLink.CreateServiceFunction(L"sFullScrMacroFastSettingsItem", ServiceFullScrMacroFastSettingsItem);
 	//Tworzenie elementu szybkiego dostepu do ustawien wtyczki
 	TPluginAction BuildFullScrMacroFastSettingsItem;
-	ZeroMemory(&BuildFullScrMacroFastSettingsItem,sizeof(TPluginAction));
+	ZeroMemory(&BuildFullScrMacroFastSettingsItem, sizeof(TPluginAction));
 	BuildFullScrMacroFastSettingsItem.cbSize = sizeof(TPluginAction);
 	BuildFullScrMacroFastSettingsItem.pszName = L"FullScrMacroFastSettingsItemButton";
 	BuildFullScrMacroFastSettingsItem.pszCaption = L"FullScrMacro";
 	BuildFullScrMacroFastSettingsItem.IconIndex = 63;
 	BuildFullScrMacroFastSettingsItem.pszService = L"sFullScrMacroFastSettingsItem";
 	BuildFullScrMacroFastSettingsItem.pszPopupName = L"popPlugins";
-	PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM,0,(LPARAM)(&BuildFullScrMacroFastSettingsItem));
+	PluginLink.CallService(AQQ_CONTROLS_CREATEPOPUPMENUITEM, 0, (LPARAM)(&BuildFullScrMacroFastSettingsItem));
 }
 //---------------------------------------------------------------------------
 
@@ -292,7 +292,7 @@ LRESULT CALLBACK TimerFrmProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 							//Odznaczenie wykonania makra
 							MacroExecuted = true;
 							//Wlaczenie timera zmiany stanu kont
-							SetTimer(hTimerFrm,TIMER_SETSTATUS,DelayValue*1000,(TIMERPROC)TimerFrmProc);
+							SetTimer(hTimerFrm, TIMER_SETSTATUS, DelayValue*1000, (TIMERPROC)TimerFrmProc);
 						}
 						//Natychmiastowa zmiana stanu kont
 						else
@@ -303,8 +303,8 @@ LRESULT CALLBACK TimerFrmProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 							LastState = GetState();
 							LastStatus = GetStatus();
 							//Ustawienie nowego stanu kont
-							if(!Status.IsEmpty()) SetStatus(State,Status);
-							else SetStatus(State,LastStatus);
+							if(!Status.IsEmpty()) SetStatus(State, Status);
+							else SetStatus(State, LastStatus);
 						}
 					}
 				}
@@ -312,11 +312,11 @@ LRESULT CALLBACK TimerFrmProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 				else if(MacroExecuted)
 				{
 					//Wylaczenie timera zmiany stanu kont
-					KillTimer(hTimerFrm,TIMER_SETSTATUS);
+					KillTimer(hTimerFrm, TIMER_SETSTATUS);
 					//Odznaczenie wykonania makra
 					MacroExecuted = false;
 					//Ustawienie poprzedniego stanu kont
-					SetStatus(LastState,LastStatus);
+					SetStatus(LastState, LastStatus);
 				}
 			}
 		}
@@ -324,13 +324,13 @@ LRESULT CALLBACK TimerFrmProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 		else if(wParam==TIMER_SETSTATUS)
 		{
 			//Wylaczenie timera
-			KillTimer(hTimerFrm,TIMER_SETSTATUS);
+			KillTimer(hTimerFrm, TIMER_SETSTATUS);
 			//Pobieranie aktualnego stanu konta glownego
 			LastState = GetState();
 			LastStatus = GetStatus();
 			//Ustawienie nowego stanu kont
-			if(!Status.IsEmpty()) SetStatus(State,Status);
-			else SetStatus(State,LastStatus);
+			if(!Status.IsEmpty()) SetStatus(State, Status);
+			else SetStatus(State, LastStatus);
 		}
 
 		return 0;
@@ -401,9 +401,9 @@ INT_PTR __stdcall OnThemeChanged(WPARAM wParam, LPARAM lParam)
 void LoadSettings()
 {
 	TIniFile *Ini = new TIniFile(GetPluginUserDir()+"\\\\FullScrMacro\\\\Settings.ini");
-	State = Ini->ReadInteger("Settings","State",5);
-	Status = DecodeBase64(Ini->ReadString("Settings","Status64",""));
-	DelayValue = Ini->ReadInteger("Settings","Delay",3);
+	State = Ini->ReadInteger("Settings", "State", 5);
+	Status = DecodeBase64(Ini->ReadString("Settings", "Status64", ""));
+	DelayValue = Ini->ReadInteger("Settings", "Delay", 3);
 
 	delete Ini;
 }
@@ -423,7 +423,7 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
 	//Tworzenie interfejsu szybkiego dostepu do ustawien wtyczki
 	BuildFullScrMacroFastSettings();
 	//Hook na zmiane kolorystyki AlphaControls
-	PluginLink.HookEvent(AQQ_SYSTEM_COLORCHANGE,OnColorChange);
+	PluginLink.HookEvent(AQQ_SYSTEM_COLORCHANGE, OnColorChange);
 	//Hook na zmiane kompozycji
 	PluginLink.HookEvent(AQQ_SYSTEM_THEMECHANGED, OnThemeChanged);
 	//Odczyt ustawien
@@ -446,7 +446,7 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
 	//Tworzenie okna timera
 	hTimerFrm = CreateWindowEx(0, L"TFullScrMacro", L"",	0, 0, 0, 0, 0, NULL, NULL, HInstance, NULL);
 	//Timer na sprawdzanie aktywnego okna
-	SetTimer(hTimerFrm,TIMER_CHKACTIVEWINDOW,500,(TIMERPROC)TimerFrmProc);
+	SetTimer(hTimerFrm, TIMER_CHKACTIVEWINDOW, 500, (TIMERPROC)TimerFrmProc);
 
 	return 0;
 }
@@ -455,11 +455,11 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
 extern "C" INT_PTR __declspec(dllexport) __stdcall Unload()
 {
 	//Wyladowanie timerow
-	for(int TimerID=10;TimerID<=20;TimerID=TimerID+10) KillTimer(hTimerFrm,TimerID);
+	for(int TimerID=10;TimerID<=20;TimerID=TimerID+10) KillTimer(hTimerFrm, TimerID);
 	//Usuwanie okna timera
 	DestroyWindow(hTimerFrm);
 	//Wyrejestowanie klasy okna timera
-	UnregisterClass(L"TFullScrMacro",HInstance);
+	UnregisterClass(L"TFullScrMacro", HInstance);
 	//Usuwanie interfejsu szybkiego dostepu do ustawien wtyczki
 	DestroyFullScrMacroFastSettings();
 	//Wyladowanie wszystkich hookow
