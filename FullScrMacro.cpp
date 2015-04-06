@@ -560,7 +560,7 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
 extern "C" INT_PTR __declspec(dllexport) __stdcall Unload()
 {
 	//Wyladowanie timerow
-	for(int TimerID=10;TimerID<=20;TimerID=TimerID+10) KillTimer(hTimerFrm, TimerID);
+	for(int TimerID=10; TimerID<=20; TimerID=TimerID+10) KillTimer(hTimerFrm, TimerID);
 	//Usuwanie okna timera
 	DestroyWindow(hTimerFrm);
 	//Wyrejestowanie klasy okna timera
