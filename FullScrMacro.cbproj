@@ -79,20 +79,18 @@
         <PackageImports>acnt_R;adortl;bcbie;bcbsmp;bdertl;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CustomIPTransport;DataSnapFireDAC;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXInterBaseDriver;DBXMySQLDriver;DBXSqliteDriver;dsnap;dsnapcon;FireDAC;FireDACADSDriver;FireDACASADriver;FireDACCommon;FireDACCommonDriver;FireDACDb2Driver;FireDACDBXDriver;FireDACDSDriver;FireDACIBDriver;FireDACInfxDriver;FireDACMSAccDriver;FireDACMSSQLDriver;FireDACMySQLDriver;FireDACODBCDriver;FireDACOracleDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;FMXTee;FmxTeeUI;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbbde;inetdbxpress;MetropolisUILiveTile;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;svn;Tee;TeeDB;TeeUI;tethering;vcl;vclactnband;vcldb;vcldbx;vcldsnap;vclFireDAC;vclie;vclimg;VCLRESTComponents;vclribbon;VclSmp;vcltouch;vclx;xmlrtl;$(PackageImports)</PackageImports>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
-        <VerInfo_Keys>FileVersion=1.1.2.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.2.0.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_MinorVer>1</VerInfo_MinorVer>
-        <VerInfo_Release>2</VerInfo_Release>
+        <VerInfo_MinorVer>2</VerInfo_MinorVer>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <PackageImports>acnt_R;adortl;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CustomIPTransport;DataSnapFireDAC;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXInterBaseDriver;DBXMySQLDriver;DBXSqliteDriver;dsnap;dsnapcon;FireDAC;FireDACADSDriver;FireDACASADriver;FireDACCommon;FireDACCommonDriver;FireDACDb2Driver;FireDACDBXDriver;FireDACDSDriver;FireDACIBDriver;FireDACInfxDriver;FireDACMSAccDriver;FireDACMSSQLDriver;FireDACMySQLDriver;FireDACODBCDriver;FireDACOracleDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;FMXTee;FmxTeeUI;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbxpress;MetropolisUILiveTile;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;Tee;TeeDB;TeeUI;tethering;vcl;vclactnband;vcldb;vcldsnap;vclFireDAC;vclie;vclimg;VCLRESTComponents;vclribbon;VclSmp;vcltouch;vclx;xmlrtl;$(PackageImports)</PackageImports>
         <BCC_PCHName_Clang>FullScrMacro.h</BCC_PCHName_Clang>
         <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
-        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_MinorVer>2</VerInfo_MinorVer>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>FileVersion=1.1.2.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
-        <VerInfo_Release>2</VerInfo_Release>
+        <VerInfo_Keys>FileVersion=1.2.0.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
@@ -117,37 +115,33 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_Release>2</VerInfo_Release>
-        <VerInfo_Keys>FileVersion=1.1.2.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.2.0.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
         <LinkPackageImports>rtl.bpi;vcl.bpi</LinkPackageImports>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_MinorVer>2</VerInfo_MinorVer>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
-        <VerInfo_Release>2</VerInfo_Release>
-        <VerInfo_Keys>FileVersion=1.1.2.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.2.0.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_MinorVer>2</VerInfo_MinorVer>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
         <TASM_Debugging>None</TASM_Debugging>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <VerInfo_Release>2</VerInfo_Release>
         <LinkPackageStatics>rtl.lib;vcl.lib;acnt_R.lib;vclimg.lib;vclx.lib;IndyProtocols.lib;IndyCore.lib;IndySystem.lib</LinkPackageStatics>
-        <VerInfo_Keys>FileVersion=1.1.2.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.2.0.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_MinorVer>2</VerInfo_MinorVer>
         <ILINK_LibraryPath>$(BDS)\lib\win32\release\;C:\Users\Public\Documents\Embarcadero\Studio\15.0\Dcp\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <ILINK_LibraryPath>C:\Users\Public\Documents\Embarcadero\Studio\15.0\Dcp\Win64\;$(BDS)\lib\win64\release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
-        <VerInfo_Keys>FileVersion=1.1.2.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <VerInfo_Keys>FileVersion=1.2.0.0;ProductName=FullScrMacro;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
         <BCC_PCHName_Clang>FullScrMacro.h</BCC_PCHName_Clang>
-        <VerInfo_Release>2</VerInfo_Release>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_MinorVer>1</VerInfo_MinorVer>
+        <VerInfo_MinorVer>2</VerInfo_MinorVer>
     </PropertyGroup>
     <ItemGroup>
         <CppCompile Include="FullScrMacro.cpp">

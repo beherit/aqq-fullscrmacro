@@ -1,3 +1,10 @@
+1.2.0.0
+-----
+* Obsługa lokalizacji (polskiej i angielskiej).
+* Pełne wsparcie kolorystyki stylizacji okien.
+* Usunięcie konwersji ustawień ze starej wersji.
+* Aktualizacja komponentów AlphaControls do nowszej wersji (9.20).
+
 1.1.2.0
 -----
 * Nieskórkowanie systemowych okien dialogowych niepochodzących z wtyczki.
