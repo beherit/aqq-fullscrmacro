@@ -1,5 +1,5 @@
 # FullScrMacro
-FullScrMacro jest wtyczką do komunikatora [AQQ](http://www.aqq.eu/pl.php). Zmienia stan wszystkich kont, gdy aktywna jest aplikacja pełnoekranowa.
+FullScrMacro jest wtyczką do komunikatora [AQQ](http://www.aqq.eu/pl.php). Zmienia stan wszystkich kont, gdy na pierwszym planie aktywna jest aplikacja pełnoekranowa.
 
 ### Wymagania
 Do skompilowania wtyczki FullScrMacro potrzebne jest:
